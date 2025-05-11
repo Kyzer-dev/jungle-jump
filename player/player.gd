@@ -6,7 +6,7 @@ signal died
 @export var jump_speed = -350
 enum {IDLE, RUN, JUMP, HURT, DEAD}
 var state = IDLE
-var life = 400: set = set_life
+var life = 3: set = set_life
 enum {LEFT, RIGHT}
 var last_input_dir = RIGHT
 
@@ -23,9 +23,15 @@ func _physics_process(delta):
 		var collision = get_slide_collision(i)
 		if collision.get_collider().is_in_group("danger"):
 			hurt()
+		if collision.get_collider().is_in_group("enemies"):
+			if position.y < collision.get_collider().position.y:
+				collision.get_collider().take_damage()
+				velocity.y = -200
+			else:
+				hurt()
 
 func reset(_position):
-	life = 400
+	life = 3
 	self.position = _position
 	show()
 	change_state(IDLE)

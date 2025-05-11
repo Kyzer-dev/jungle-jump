@@ -1,0 +1,152 @@
+[gd_scene load_steps=10 format=3 uid="uid://cvmml3hcgg7eu"]
+
+[ext_resource type="Script" uid="uid://cs4bfkve6x3go" path="res://ui/title.gd" id="1_8lx1x"]
+[ext_resource type="Texture2D" uid="uid://b2s7qyyuab0gf" path="res://assets/environment/back.png" id="1_co4ec"]
+[ext_resource type="Texture2D" uid="uid://ofhywbaff4bb" path="res://assets/environment/middle.png" id="2_8abyn"]
+[ext_resource type="FontFile" uid="uid://dk3jwvt7xr385" path="res://assets/Kenney Thick.ttf" id="3_5w2xo"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8lx1x"]
+font = ExtResource("3_5w2xo")
+font_size = 72
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_k1m56"]
+font = ExtResource("3_5w2xo")
+font_size = 48
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_5w2xo"]
+resource_name = "intro"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Title:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(600, -108), Vector2(600, 383)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Message:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2000, 540), Vector2(550, 540)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TextureRect2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-267, 1000), Vector2(-267, 720)]
+}
+
+[sub_resource type="Animation" id="Animation_8lx1x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Title:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(607, -108)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Message:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2000, 540)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TextureRect2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-267, 1000)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k1m56"]
+_data = {
+&"RESET": SubResource("Animation_8lx1x"),
+&"intro": SubResource("Animation_5w2xo")
+}
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8lx1x")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("1_co4ec")
+stretch_mode = 6
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+offset_left = -267.0
+offset_top = 1000.0
+offset_right = 2317.0
+offset_bottom = 1368.0
+texture = ExtResource("2_8abyn")
+stretch_mode = 1
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 0
+offset_left = 600.0
+offset_top = -108.0
+offset_right = 1320.0
+offset_bottom = -27.0
+text = "Jungle Jump"
+label_settings = SubResource("LabelSettings_8lx1x")
+horizontal_alignment = 1
+
+[node name="Message" type="Label" parent="."]
+offset_left = 2000.0
+offset_top = 540.0
+offset_right = 2834.0
+offset_bottom = 594.0
+text = "Press Space to Play"
+label_settings = SubResource("LabelSettings_k1m56")
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_k1m56")
+}
+autoplay = "intro"
